@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "835618233552",
+    "firebase_url": "https://koona-f3098.firebaseio.com",
+    "project_id": "koona-f3098",
+    "storage_bucket": "koona-f3098.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:835618233552:android:ed079edbbde3aa3f16d2d5",
+        "android_client_info": {
+          "package_name": "mikonski.com.koona"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "835618233552-sbl224p4h2cd90o42ajueopc3t8lhf72.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mikonski.com.koona",
+            "certificate_hash": "adb9cd3347251b49c49f0793e6be8de3cef26750"
+          }
+        },
+        {
+          "client_id": "835618233552-5bcu850imda5rphcv7l5i1pl2paaatt0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKpW9IdzdKZJ7NMnjRsWvEXUT99rvN4s8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "835618233552-5bcu850imda5rphcv7l5i1pl2paaatt0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
