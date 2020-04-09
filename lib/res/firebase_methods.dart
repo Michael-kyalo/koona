@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:koona/models/messages.dart';
 import 'package:koona/models/user.dart';
 import 'package:koona/utils/utils.dart';
 
@@ -10,7 +11,7 @@ class FirebaseMethods{
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   static final Firestore firestore = Firestore.instance;
 
-
+  User one = User(); 
 
 
 
@@ -22,7 +23,7 @@ class FirebaseMethods{
     return _auth.onAuthStateChanged.map(_userFromFirebase);
   }
 
-  Future<User> signinWithGoogle() async{
+  Future<FirebaseUser> signinWithGoogle() async{
     try{
       GoogleSignInAccount _signinAccount = await _googleSignIn.signIn();
       GoogleSignInAuthentication _signinauth = await _signinAccount.authentication;
@@ -30,14 +31,15 @@ class FirebaseMethods{
       final AuthCredential credential = GoogleAuthProvider.getCredential(idToken: _signinauth.idToken, accessToken: _signinauth.accessToken);
       AuthResult result = await _auth.signInWithCredential(credential);
       FirebaseUser user = result.user;
-      return _userFromFirebase(user);
+      _userFromFirebase(user);
+      return user ;
     }catch(e){
       print(e);
       return null;
 
     }
   }
-  Future<bool> checkUser(User user) async{
+  Future<bool> checkUser(FirebaseUser user) async{
     QuerySnapshot result = await firestore.collection('users').where('email', isEqualTo: user.email).getDocuments();
 
     final List<DocumentSnapshot> docs = result.documents;
@@ -46,20 +48,26 @@ class FirebaseMethods{
 
   }
 
-  Future<void> addToDb(User user) async{
+  Future<void> addToDb(FirebaseUser cuser) async {
+    String username = Utils.getUsername(cuser.email);
+    one = User(
+      uid: cuser.uid,
+      displayPic: cuser.photoUrl,
+      email: cuser.email,
+      name: cuser.displayName,
+      username: username
 
-    getUser();
-    FirebaseUser current;
-    current = await getUser();
-    User user1 = User(
-        uid: current.uid,
-        name: current.displayName,
-        displayPic: current.photoUrl,
-        email: current.email,
-        username: Utils.getUsername(current.email)
     );
+    try {
 
-    firestore.collection('users').document(current.uid).setData(user1.toMap(user1));
+      await firestore.collection('users').document(cuser.uid).setData(
+          one.toMap(one));
+    }
+    catch(e){
+      print(e);
+    }
+
+    
 
   }
   Future<FirebaseUser> getUser() async{
@@ -85,6 +93,13 @@ class FirebaseMethods{
     return usersList;
 
 
+
+  }
+  Future<void> addMessageToDb(Message message, User sender, User recipient) async{
+
+    var map = message.toMap();
+      await firestore.collection('messages').document(message.senderId).collection(message.recieverId).add(map);
+      await firestore.collection('messages').document(message.recieverId).collection(message.senderId).add(map);
 
   }
 

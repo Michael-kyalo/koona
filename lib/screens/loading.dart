@@ -19,7 +19,7 @@ class _loadingState extends State<Loading> {
           child:  Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SpinKitCubeGrid(
+              SpinKitRing(
                 color: Colors.white,
                 size: 90.0,
 

@@ -10,8 +10,8 @@ class Utils{
       String name
       ){
     List<String> split = name.split(" ");
-    String initial1 = split[0][0];
-    String initial2 = split [1][0];
+    String initial1 = split[0][0].toUpperCase();
+    String initial2 = split [1][0].toUpperCase();
     return initial1 + "." + initial2;
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:koona/models/user.dart';
 import 'package:koona/res/firebase_repo.dart';
+import 'package:koona/screens/chatScreen.dart';
 import 'package:koona/utils/utils.dart';
 import 'package:koona/widgets/custom_list_tile.dart';
 import 'package:provider/provider.dart';
@@ -42,8 +43,12 @@ class _ChatsState extends State<Chats> {
 
   @override
   Widget build(BuildContext context) {
+
     final user = Provider.of<User>(context);
     var height = MediaQuery.of(context).size.height;
+
+    //print(user.name);
+
     code = Utils.getCode(user.name);
     textEditingController = TextEditingController();
 
@@ -179,7 +184,7 @@ class _ChatsState extends State<Chats> {
                                       shape: BoxShape.circle,
                                       border: Border.all(
                                           width: 1,
-                                          color: Colors.green
+                                          color: Colors.white,
                                       )
                                   ),
                                   child: IconButton(icon: Icon(Icons.search, color: Colors.green,), onPressed:(){
@@ -192,7 +197,7 @@ class _ChatsState extends State<Chats> {
                               ),
                                hintText: 'search',
                                 hintStyle: TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   color: Colors.grey,
                                 ),
                                 border: InputBorder.none
@@ -253,8 +258,9 @@ class _ChatsState extends State<Chats> {
                                   ),
                                 ),
                               );
-                            }): ListView.builder(itemCount: suggestionList.length,
-                        itemBuilder: (context, index){
+                            }): ListView.builder(
+                          itemCount: suggestionList.length,
+                          itemBuilder: (context, index){
                               User searchedUser = User(
                                 username: suggestionList[index].username,
                                 name: suggestionList[index].name,
@@ -264,7 +270,12 @@ class _ChatsState extends State<Chats> {
                               );
                               return CustomListtile(
                                 size: false,
-                                onTap: (){},
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder:(context)=>ChatScreen(
+                                    reciever: suggestionList?.elementAt(index),
+                                    name: suggestionList?.elementAt(index)?.name,
+                                  )));
+                                },
                                 leading: CircleAvatar(
                                   backgroundImage: NetworkImage(searchedUser.displayPic),
                                   backgroundColor: Colors.green,

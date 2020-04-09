@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:koona/res/firebase_repo.dart';
 import 'package:koona/screens/pageviews/chats.dart';
 class HomeScreen extends StatefulWidget {
   @override
@@ -22,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     _pageController = PageController(initialPage:currentpage, keepPage: false);
 
     return Scaffold(
@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            currentpage == 0 ? _selected(Icons.chat, ' ') : IconButton(
+            currentpage == 0 ? _selected(Icons.chat, 'Chats') : IconButton(
               icon: Icon(Icons.chat, color: Colors.green,), onPressed: () {
               setState(() {
                 currentpage = 0;
@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
               _pageController.jumpToPage(0);
             },),
             currentpage == 1
-                ? _selected(Icons.call, ' ')
+                ? _selected(Icons.call, 'Call Log')
                 : IconButton(icon: Icon(Icons.call, color: Colors.green),
               onPressed: () {
                 setState(() {
@@ -60,9 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 _pageController.jumpToPage(1);
               },),
             currentpage == 2
-                ? _selected(Icons.contact_phone, ' ')
+                ? _selected(Icons.contacts, 'Contacts')
                 : IconButton(
-              icon: Icon(Icons.contact_phone, color: Colors.green), onPressed: () {
+              icon: Icon(Icons.contacts, color: Colors.green), onPressed: () {
               setState(() {
                 currentpage = 3;
               });
@@ -91,7 +91,7 @@ Widget _selected(icon,String string) {
     child: Row(
       children: <Widget>[
         Icon(icon, color: Colors.white,),
-        SizedBox(width: 2,),
+        SizedBox(width: 4,),
         Text(string, style: TextStyle(color: Colors.white),)
       ],
     ),

@@ -1,7 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:koona/res/firebase_methods.dart';
-import 'package:koona/screens/searchscreen.dart';
+
 import 'package:provider/provider.dart';
 
 import 'home.dart';
